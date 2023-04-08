@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DALLE2Client.Views.TestView"
+             xmlns:ViewModels="clr-namespace:DALLE2Client.ViewModels"
+             xmlns:Models="clr-namespace:DALLE2Client.Models"
+             xmlns:Toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="ViewModels:TestViewModel"
+             BackgroundColor="#151d27"
+             Shell.FlyoutBehavior="Flyout"
+             Title="TestView">
+    
+    <Shell.TitleView>
+        <FlexLayout BackgroundColor="Aquamarine">
+            <ImageButton Source="dotnet_bot.png"  Aspect="AspectFit"/>
+            <ImageButton Source="dotnet_bot.png"  Aspect="AspectFit"/>
+            <ImageButton Source="dotnet_bot.png"  Aspect="AspectFit"/>
+            <ImageButton Source="dotnet_bot.png"  Aspect="AspectFit"/>
+        </FlexLayout>
+    </Shell.TitleView>
+
+
+</ContentPage>
+
+
+
+<!--<Frame  WidthRequest="290" HeightRequest="290">
+                    <Image Source="{Binding Url}" WidthRequest="290" HeightRequest="290" Aspect="AspectFit" >
+                        <Image.Shadow>
+                            <Shadow Brush="#BAD9B5"
+                                Offset="20,20"
+                                Radius="50"
+                                Opacity="0.7" />
+                        </Image.Shadow>
+                    </Image>
+                </Frame>-->

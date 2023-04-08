@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="DALLE2Client.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:DALLE2Client"
+    xmlns:Views="clr-namespace:DALLE2Client.Views"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.BackgroundColor="#011627"
+>
+    <Shell.FlyoutBackgroundColor>
+        <Color>#6965ED</Color>
+    </Shell.FlyoutBackgroundColor>
+    
+    <Shell.FlyoutHeader>
+        <StackLayout Orientation="Horizontal" Padding="10,20">
+            <Image Source="dotnet_bot.png" WidthRequest="50" HeightRequest="50" Aspect="AspectFit"/>
+            <Label Text="My App" TextColor="Black" FontSize="Large" VerticalOptions="Center"/>
+        </StackLayout>
+    </Shell.FlyoutHeader>
+
+
+    <FlyoutItem Title="AI创造" Icon="dotnet_bot.png">
+        <Tab Title="AI创造">
+            <ShellContent Title="AI创造"
+                ContentTemplate="{DataTemplate Views:AIGenerateView}" />
+        </Tab>
+    </FlyoutItem>
+    
+    <FlyoutItem Title="AITest">
+        <Tab Title="AITest"  Icon="dotnet_bot.png">
+            <ShellContent Title="AITest"
+                ContentTemplate="{DataTemplate Views:TestView}" />
+        </Tab>
+    </FlyoutItem>
+    
+    <FlyoutItem Title="AI变换">
+        <Tab Title="AI变换">
+            <ShellContent Title="AI变换" Icon="dotnet_bot.png"
+                ContentTemplate="{DataTemplate Views:AIVaryView}" />
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="画廊">
+        <Tab Title="画廊">
+            <ShellContent Title="画廊" Icon="dotnet_bot.png"
+                ContentTemplate="{DataTemplate Views:GalleryView}" />
+        </Tab>
+    </FlyoutItem>
+    
+    <FlyoutItem Title="邀请码">
+        <Tab Title="邀请码">
+            <ShellContent Title="邀请码"
+                ContentTemplate="{DataTemplate Views:InvitationCodeView}" />
+        </Tab>
+    </FlyoutItem>
+    
+    <FlyoutItem Title="设置">
+        <Tab Title="设置">
+            <ShellContent Title="设置"
+                ContentTemplate="{DataTemplate Views:SettingView}" />
+        </Tab>
+    </FlyoutItem>
+</Shell>

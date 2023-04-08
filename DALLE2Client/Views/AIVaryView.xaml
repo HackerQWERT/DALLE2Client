@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DALLE2Client.Views.AIVaryView"
+             xmlns:Toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:Viewmodels="clr-namespace:DALLE2Client.ViewModels"
+             xmlns:Models="clr-namespace:DALLE2Client.Models"
+             xmlns:Services="clr-namespace:DALLE2Client.Services"
+             x:DataType="Viewmodels:AIVaryViewModel"
+             BackgroundColor="#151d27"
+             >
+
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="*,*,*,*" >
+            <Label Grid.Column="0" Text="AI变换" TextColor="White" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Title"/>
+            <!--剩余次数-->
+            <!--<Label Grid.Column="1" Text="剩余次数:100"  TextColor="Aqua" FontSize="19" VerticalOptions="Center"  HorizontalOptions="End" />-->
+            <Label  Grid.Column="1" Text="{Binding WebConnectionIconAddress}"   TextColor="Aqua" FontSize="19" VerticalOptions="Center"  HorizontalOptions="Start" />
+            <ImageButton Grid.Column="2" Source="dotnet_bot.png"  Aspect="AspectFit" Command="{Binding SavePicturesCommand}"/>
+            <ImageButton Grid.Column="3" Source="dotnet_bot.png"  Aspect="AspectFit" Command="{Binding ClearPicturesCommand}"/>
+        </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="False" FalseObject="True" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"  Command="{Binding RefreshCommand}">
+        <ScrollView>
+            <VerticalStackLayout Spacing="10">
+
+                <!--TODO:图像-->
+                <CollectionView  HeightRequest="290" WidthRequest="290" Margin="0,10,0,10"  ItemsSource="{Binding ImagesList}" HorizontalOptions="Center" VerticalOptions="Center">
+                    <CollectionView.EmptyView>
+                        <Frame BackgroundColor="#04336b" BorderColor="#04336b" CornerRadius="5" HeightRequest="290" WidthRequest="290">
+                            <Grid>
+                                <Label Text="开始你的变换吧!" IsVisible="{Binding IsActivityIndicatorRunning,Converter={StaticResource   BoolToObjectConverter }}" TextColor="#7A62F5" FontSize="29" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                <!--加载器-->
+                                <HorizontalStackLayout  IsVisible="{Binding IsActivityIndicatorRunning}" IsEnabled="{Binding IsActivityIndicatorRunning}" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <ActivityIndicator 
+                                    WidthRequest="50"
+                                    Color="#8F0E86"  IsVisible="{Binding IsActivityIndicatorRunning}" IsRunning="{Binding IsActivityIndicatorRunning}" IsEnabled="{Binding IsActivityIndicatorRunning}" />
+                                    <Label Text="变换图像中" FontSize="29" TextColor="#EB1FF9" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Grid>
+
+                        </Frame>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Models:ImageModel">
+                            <Frame  BackgroundColor="#04336b" BorderColor="#04336b" CornerRadius="5"  HeightRequest="290" WidthRequest="290">
+                                <Image Source="{Binding ImageSource}"    HeightRequest="290" WidthRequest="290" Opacity="1" Aspect="AspectFit" >
+                                </Image>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+    
+                <!--生成图片数量-->
+                <Slider Margin="10,0,0,10" x:Name="ImageQuantitySlider"   Value="{Binding GeneretionImageQuantities, Mode=OneWayToSource}" ThumbColor="#4f36a2"  Minimum="1" Maximum="10"  ValueChanged="ImageQuantitySliderValueChanged"/>
+
+                <Grid ColumnDefinitions="*,*" HeightRequest="315">
+
+                    <!--图像分辨率-->
+                    <VerticalStackLayout  Grid.Column="0" Spacing="10">
+                        <Label Text="请选择图像分辨率:" TextColor="CadetBlue" FontSize="19" Margin="10,10,10,0"/>
+                        <RadioButton Content="1024x1024" Value="{Binding GeneretionImageSize}" TextColor="CadetBlue" GroupName="Resolution" CheckedChanged="ImageSizeRadioButtonCheckedChangedAsync"/>
+                        <RadioButton Content="512x512" Value="{Binding GeneretionImageSize}" TextColor="CadetBlue" GroupName="Resolution" CheckedChanged="ImageSizeRadioButtonCheckedChangedAsync"/>
+                        <RadioButton Content="256x256" Value="{Binding GeneretionImageSize}"  TextColor="CadetBlue" GroupName="Resolution" CheckedChanged="ImageSizeRadioButtonCheckedChangedAsync"/>
+                    </VerticalStackLayout>
+                    <!--上传图像-->
+                    <VerticalStackLayout Grid.Column="1"  Spacing=" 10" >
+                        <CollectionView HeightRequest="190" WidthRequest="190" Margin="0,0,10,0" ItemsSource="{Binding UpLoadImagesList} ">
+                            <CollectionView.EmptyView>
+                                <Frame   BackgroundColor="#04336b" BorderColor="#04336b" CornerRadius="5" HeightRequest="190" WidthRequest="190">
+                                    <Label Text="上传图像吧!" TextColor="#7A62F5" FontSize="19" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                </Frame>
+                            </CollectionView.EmptyView>
+
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="Models:ImageModel">
+                                    <Frame BackgroundColor="#04336b" BorderColor="#04336b" CornerRadius="5"  HeightRequest="190" WidthRequest="190">
+                                        <Image 
+                                            Source= "{Binding ImageSource}"    HeightRequest="190" WidthRequest="190" Opacity="1" Aspect="AspectFit"/> 
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Button Text="取消" BackgroundColor="#2C3F73" IsVisible="true" Margin="0,10 ,10,10" Command="{Binding CancelUpLoadImageCommand}"/>
+                        <Button Text="上传图片" BackgroundColor="#2C3F73" IsVisible="true" Margin="0,0 ,10,0"  Command="{Binding  UpLoadImageCommand}"/>
+                    </VerticalStackLayout>
+                </Grid>
+                <!--变换按钮-->
+
+                <Button Text="开始变换!" BackgroundColor="#BC6BBA" FontSize="Body" Margin="10" Command="{Binding VaryImagesCommand}"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+
+</ContentPage>

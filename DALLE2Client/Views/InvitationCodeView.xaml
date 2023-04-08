@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DALLE2Client.Views.InvitationCodeView"
+             xmlns:ViewModelws="clr-namespace:DALLE2Client.ViewModels"
+             xmlns:Toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="ViewModelws:InvitationCodeViewModel"
+             BackgroundColor="#151d27"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="False" FalseObject="True" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"  Command="{Binding RefreshCommand}">
+        <ScrollView>
+            <VerticalStackLayout Spacing="10">
+                <!--专属邀请码-->
+                <Label  Text="专属邀请码" FontSize="29" VerticalOptions="Start" HorizontalOptions="Center" TextColor="White"/>
+                <Label Margin="10,0" Text="将邀请码分享出去,如果其Ta人绑定了你的专属邀请码，那么Ta的每次购买都会为你带来10%的收益,你将获得额外的10%绘画奖励或聊天奖励" 
+                   FontSize="19" VerticalOptions="Start" HorizontalOptions="Center" TextColor="Aqua"/>
+                <Button Text="生成专属邀请码" Command="{Binding GenerateInvitationCodeCommand}"  IsVisible="{Binding IsHavingExclusiveInvitationCode ,Converter={StaticResource   BoolToObjectConverter} }"/>
+                <Label Text="{Binding ExclusiveInvitationCode}" IsVisible="{Binding IsHavingExclusiveInvitationCode  }" FontSize="29" VerticalOptions="Center" TextColor="Red" HorizontalOptions="Center" />
+                <Button Text="复制邀请码"   Command="{Binding CopyInvitationCodeCommand}" IsVisible="{Binding IsHavingExclusiveInvitationCode}" Margin="10" BackgroundColor="#092e5b" FontSize="Large" CornerRadius="10" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                <Label Text="已邀请人数:" IsVisible="{Binding IsHavingExclusiveInvitationCode}"  TextColor="White"  FontSize="29" VerticalOptions="Center"  HorizontalOptions="Center" />
+                <Label Text="获得奖励:"  IsVisible="{Binding IsHavingExclusiveInvitationCode}"   TextColor="White" FontSize="29" VerticalOptions="Center"  HorizontalOptions="Center" />
+                <!--绑定邀请码-->
+                <Label Text="绑定邀请码" TextColor="White" Margin="0,40,0,0" FontSize="29" VerticalOptions="Center"  HorizontalOptions="Center" />
+                <Label Margin="10,0" Text="如果绑定其Ta人的邀请码，那么每次购买都会获得20%的额外次数" 
+                   FontSize="19" VerticalOptions="Start" HorizontalOptions="Center" TextColor="Aqua"/>
+                <Frame BackgroundColor="#011627" IsVisible="{Binding IsHavingBoundInvitationCode,Converter={StaticResource BoolToObjectConverter}}">
+                    <Entry Text="{Binding InvitationCodeToBind}" TextColor="Aqua" FontSize="Body" Placeholder="输入邀请码" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                </Frame>
+                <Button Margin="0,1,0,0"  Command="{Binding BindInvitationCodeCommand}"   IsVisible="{Binding IsHavingBoundInvitationCode,Converter={StaticResource BoolToObjectConverter}}"  Text="绑定邀请码"  FontSize="19" TextColor="Honeydew" />
+              
+                <Label Text="{Binding BoundInvitationCode}" IsVisible="{Binding   IsHavingBoundInvitationCode   ,Converter={StaticResource BoolToObjectConverter}  }" FontSize="29" VerticalOptions="Center" TextColor="Red" HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

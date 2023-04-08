@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DALLE2Client.Views.SettingView"
+             xmlns:ViewModels="clr-namespace:DALLE2Client.ViewModels"
+             xmlns:Toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="ViewModels:SettingViewModel"
+             BackgroundColor="#151d27"
+             >
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="False" FalseObject="True" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"  Command="{Binding RefreshCommand}">
+        <ScrollView>
+            <VerticalStackLayout>
+                <!--账号-->
+                <Frame Margin="0,2,0,0"  CornerRadius="0" BackgroundColor="#011627" BorderColor="#011627">
+                    <Label TextColor="#80c7fd" Text="账号" FontSize="Body" CharacterSpacing="1"/>
+                </Frame>
+                <Button  ContentLayout="Left,0" Text="{Binding Account}"  FontSize="19" TextColor="#A951A7" BackgroundColor="#011627" CornerRadius="0"/>
+
+                <!--当前帐号绘画次数-->
+                <Frame Margin="0,1,0,0"  CornerRadius="0" BackgroundColor="#011627" BorderColor="#011627">
+                    <Label TextColor="#CC33E3" Text="当前帐号绘画次数:" FontSize="19" FontAttributes="Italic" CharacterSpacing="1"/>
+                </Frame>
+                <Frame Margin="0,1,0,0"  CornerRadius="0" BackgroundColor="#011627" BorderColor="#011627">
+                    <Label TextColor="#CC33E3" Text="{Binding LastDrawCounts}" FontSize="25" CharacterSpacing="1" FontAttributes="Italic"  HorizontalTextAlignment="Center"/>
+                </Frame>
+
+                <!--当前帐号聊天次数-->
+                <Frame Margin="0,1,0,0"  CornerRadius="0" BackgroundColor="#011627" BorderColor="#011627">
+                    <Label TextColor="#CC33E3" Text="当前帐号聊天次数:" FontSize="19" FontAttributes="Italic" CharacterSpacing="1"/>
+                </Frame>
+                <Frame Margin="0,1,0,0"  CornerRadius="0" BackgroundColor="#011627" BorderColor="#011627">
+                    <Label TextColor="#CC33E3" Text="{Binding LastChatCounts}" FontSize="25" CharacterSpacing="1" FontAttributes="Italic"  HorizontalTextAlignment="Center"/>
+                </Frame>
+          
+                <!--登录账号-->
+                <Button IsVisible="{Binding IsLogged,Converter={StaticResource BoolToObjectConverter}}" Margin="0,1,0,0" VerticalOptions="End"   Command="{Binding GoToLoginViewCommand}" Text="登录账号"  FontSize="19" TextColor="Red" BackgroundColor="#011627" CornerRadius="0"/>
+         
+                <!--注册账号-->
+                <Button IsVisible="{Binding IsLogged,Converter={StaticResource BoolToObjectConverter}}" Margin="0,1,0,0" VerticalOptions="End"   Command="{Binding GoToRegisterAccountViewCommand}" Text="注册账号"  FontSize="19" TextColor="Red" BackgroundColor="#011627" CornerRadius="0"/>
+
+                <!--修改密码-->
+                <Button IsVisible="{Binding IsLogged}" Margin="0,1,0,0" VerticalOptions="End"   Command="{Binding  GoToChangePasswordViewCommand}" Text="修改密码"  FontSize="19" TextColor="Red" BackgroundColor="#011627" CornerRadius="0"/>
+          
+                <!--切换账号-->
+                <Button IsVisible="{Binding IsLogged}" Margin="0,1,0,0" VerticalOptions="End" Command="{Binding GoToLoginViewCommand}" Text="切换账号"  FontSize="19" TextColor="#6B46F0" BackgroundColor="#011627" CornerRadius="0"/>
+
+                <!--退出登录-->
+                <Button IsVisible="{Binding IsLogged}" Margin="0,1,0,0" Text="退出登录" VerticalOptions="End" Command="{Binding    SignOutCommand}" FontSize="19" TextColor="#B429FF" BackgroundColor="#011627" CornerRadius="0"/>
+
+                <!--帮助-->
+                <Frame Margin="0,4,0,0" VerticalOptions="End" CornerRadius="0" BackgroundColor="#011627" BorderColor="#011627">
+                    <Label TextColor="#80c7fd" Text="帮助" FontSize="Body" CharacterSpacing="1"/>
+                </Frame>
+                <Button ContentLayout="Left,0" Text="xxxxxxxxxxxxxxxxxxxx" TextColor="#DC411E" FontSize="19" BackgroundColor="#011627" CornerRadius="0"/>
+                <!--版本信息-->
+                <Button Margin="0,1,0,0" ContentLayout="Left,0" Text="AI Android 客户端 v1.0.1" TextColor="#32E3D1" FontSize="19" FontAttributes="Italic"  BackgroundColor="#011627" CornerRadius="0"/>
+                <!--作者-->
+                <Button  Margin="0,1,0,0"  ContentLayout="Left,0" Text="作者:雾都杀手" TextColor="#32E3D1" FontSize="19" FontAttributes="Italic"  BackgroundColor="#011627" CornerRadius="0"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+
+</ContentPage>

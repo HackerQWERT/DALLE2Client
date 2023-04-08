@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DALLE2Client.Views.RegisterAccountView"
+             xmlns:ViewModels="clr-namespace:DALLE2Client.ViewModels"
+             x:DataType="ViewModels:RegisterAccountViewModel"
+             xmlns:Toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             BackgroundColor="#FE1494"
+             Title="注册">
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#FF1476"
+                          Offset="0.1" />
+            <GradientStop Color="#A77AFF"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    
+    <ScrollView>
+        <VerticalStackLayout VerticalOptions="CenterAndExpand">
+            <!--账号-->
+            <Frame Margin="5"  BackgroundColor="#EB14FF" BorderColor="#011627">
+                <Frame.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#78A5FF"
+                          Offset="0.1" />
+                        <GradientStop Color="#EB14FF"
+                          Offset="1.0" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+                <Entry Text="{Binding Account}" Toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference PasswordEntry}" VerticalOptions="Center" PlaceholderColor="#6B46F0" Placeholder="账号" HorizontalTextAlignment="Center" TextColor="#011627" FontSize="19"/>
+            </Frame> 
+     
+            <!--密码-->
+            <Frame Margin="5"  BackgroundColor="#EB14FF" BorderColor="#011627">
+                <Frame.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#78A5FF"
+                          Offset="0.1" />
+                        <GradientStop Color="#EB14FF"
+                          Offset="1.0" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+                <Entry  Text="{Binding Password}" x:Name="PasswordEntry" VerticalOptions="Center" PlaceholderColor="#6B46F0" Placeholder="密码"  HorizontalTextAlignment="Center"  TextColor="#011627" FontSize="19" IsPassword="True"/>
+            </Frame>
+            <!--提示-->
+            <Label Text="请记住密码,丢失无法找回!!!!" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Aqua" FontSize="Large" FontAttributes="Italic" FontAutoScalingEnabled="True"/>
+
+            <!--注册-->
+            <Button Margin="5,50,5,5" Text="注册" Command="{Binding RegisterAccountCommand}" FontSize="19" TextColor="Aqua" BackgroundColor="#EB14FF"  HeightRequest="90">
+                <Button.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#59FF72"
+                          Offset="0.1" />
+                        <GradientStop Color="#78A5FF"
+                          Offset="1.0" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </VerticalStackLayout> 
+    </ScrollView>
+
+</ContentPage>
