@@ -33,19 +33,19 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
-            .ConfigureFonts(fonts =>
+			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
 #if DEBUG
-        builder.Logging.AddDebug();
+		builder.Logging.AddDebug();
 #endif
 
-        //注册服务
-		builder.Services.AddSingleton<SignalR>();		
-		builder.Services.AddSingleton<SqliteDatabase>();		
+		//注册服务
+		builder.Services.AddSingleton<SignalR>();
+		builder.Services.AddSingleton<SqliteDatabase>();
 
 
 
@@ -58,25 +58,22 @@ public static class MauiProgram
 		builder.Services.AddSingleton<InvitationCodeView>();
 		builder.Services.AddSingleton<TestView>();
 
-        builder.Services.AddTransient<ChangePasswordView>();
-        builder.Services.AddTransient<LoginView>();
-        builder.Services.AddTransient<RegisterAccountView>();
+		builder.Services.AddTransient<ChangePasswordView>();
+		builder.Services.AddTransient<LoginView>();
+		builder.Services.AddTransient<RegisterAccountView>();
 
-        //注册ViewModels
-        builder.Services.AddSingleton<AIGenereteViewModel>();
-        builder.Services.AddSingleton<AIVaryViewModel>();
-        builder.Services.AddSingleton<SettingViewModel>();
-        builder.Services.AddSingleton<GalleryViewModel>();
-        builder.Services.AddSingleton<InvitationCodeViewModel>();
-        builder.Services.AddSingleton<TestViewModel>();
-        builder.Services.AddSingleton<BaseViewModel>();
+		//注册ViewModels
+		builder.Services.AddSingleton<AIGenereteViewModel>();
+		builder.Services.AddSingleton<AIVaryViewModel>();
+		builder.Services.AddSingleton<SettingViewModel>();
+		builder.Services.AddSingleton<GalleryViewModel>();
+		builder.Services.AddSingleton<InvitationCodeViewModel>();
+		builder.Services.AddSingleton<TestViewModel>();
+		builder.Services.AddSingleton<BaseViewModel>();
 
-        builder.Services.AddTransient<ChangePasswordViewModel>();
-        builder.Services.AddTransient<LoginViewModel>();
-        builder.Services.AddTransient<RegisterAccountViewModel>();
-
-
-
-        return builder.Build();
+		builder.Services.AddTransient<ChangePasswordViewModel>();
+		builder.Services.AddTransient<LoginViewModel>();
+		builder.Services.AddTransient<RegisterAccountViewModel>();
+		return builder.Build();
 	}
 }
